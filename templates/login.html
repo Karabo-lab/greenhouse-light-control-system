@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .bg-img {
+            background-image: url('{{ url_for('static', filename='img/bg-img/24.jpg') }}');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-form input,
+        .login-form .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .login-form .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+        }
+        .header-area .classy-navbar {
+            background: none;
+        }
+        .top-header-content {
+            justify-content: center;
+        }
+        .top-header-content .login a {
+            color: white;
+        }
+        .classynav ul li a {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img">
+            <img src="{{ url_for('static', filename='img/core-img/leaf.png') }}" alt="">
+        </div>
+    </div>
+
+    <header class="header-area">
+        <div class="top-header-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="top-header-content d-flex align-items-center justify-content-between">
+                            <div class="top-header-meta d-flex">
+                                <div class="signup">
+                                    <a href="/signup"><i class="fa fa-user" aria-hidden="true"></i> <span>Signup</span></a>
+                                </div>
+                                <div class="adminlogin">
+                                    <a href="/adminlogin"><i class="fa fa-user" aria-hidden="true"></i> <span>Amin Login</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alazea-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="alazeaNav">
+                        <a href="{{ url_for('home') }}" class="nav-brand"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""></a>
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+                        <div class="classy-menu">
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                                    <li><a href="#">Pages</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{{ url_for('home') }}">Home</a></li>
+                                            <li><a href="{{ url_for('about') }}">About</a></li>
+                                            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-img">
+        <div class="login-form">
+            <h2>Login</h2>
+            <form action="{{ url_for('userlogin') }}" method="post">
+                <input type="email" name="username" placeholder="Username" required>
+                <input type="password" name="passwrd" placeholder="Password" required>
+                    <button type="submit" formaction="{{ url_for('userlogin') }}" class="btn alazea-btn">User Login</button>
+                </div>
+                {% if error %}
+                    <p style="color:red;">{{ error }}</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery/jquery-2.2.4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins/plugins.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/active.js') }}"></script>
+</body>
+</html>
+
+

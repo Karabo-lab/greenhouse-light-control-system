@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Light Control System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Admin Dashboard</h1>
+        <p><strong>Area with Most Sunlight:</strong> {{ mostsun }}</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Area 1</h2>
+                <p><strong>Latest Reading:</strong> {{ area1lr }}</p>
+                <p><strong>Red LED Status:</strong> {{ area1redstatus }}</p>
+                <p><strong>Green LED Status:</strong> {{ area1greenstatus }}</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Area 2</h2>
+                <p><strong>Latest Reading:</strong> {{ area2lr }}</p>
+                <p><strong>Red LED Status:</strong> {{ area2redstatus }}</p>
+                <p><strong>Green LED Status:</strong> {{ area2greenstatus }}</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Area 3</h2>
+                <p><strong>Latest Reading:</strong> {{ area3lr }}</p>
+                <p><strong>Red LED Status:</strong> {{ area3redstatus }}</p>
+                <p><strong>Green LED Status:</strong> {{ area3greenstatus }}</p>
+            </div>
+        </div>
+
+        <h2>Data Table</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Area 1</th>
+                    <th scope="col">Area 2</th>
+                    <th scope="col">Area 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Reading Chart</h2>
+        <canvas id="ldrChart"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('ldrChart').getContext('2d');
+        var ldrChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ labels|tojson }},
+                datasets: [
+                    {
+                        label: 'Area 1',
+                        data: {{ readings1|tojson }},
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Area 2',
+                        data: {{ readings2|tojson }},
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Area 3',
+                        data: {{ readings3|tojson }},
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            unit: 'minute'
+                        },
+                        distribution: 'linear'
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
