@@ -14,7 +14,7 @@ This project is a smart light control system designed for greenhouse environment
 - Automatically adjusts lighting based on sensor input
 
 ## Technologies Used
-- Python 3
+- Python 3/Flask
 - Arduino (C++)
 - HTML/CSS
 - MySQL
